@@ -1,0 +1,23 @@
+--Open power shell--
+
+git clone (URL)
+--Clones a repository
+
+git status
+--Shows the difference between your files and githubs files
+
+git add (fileName)
+--Adds the specified file to github.  This change is on your computer only.
+
+git add .
+--Adds all files in your directory
+
+git commit -m "(Message here)"
+--Commit a change with a message.  This change is on your computer only
+
+git push
+--Takes all the changes made on your machine and pushing them up to github
+
+git pull
+--Pulls down the files (and changes) from github.
+

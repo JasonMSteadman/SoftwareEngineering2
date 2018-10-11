@@ -18,6 +18,12 @@ git commit -m "(Message here)"
 git push
 --Takes all the changes made on your machine and pushing them up to github
 
+git stash
+--Saves work on your computer
+
 git pull
 --Pulls down the files (and changes) from github.
+
+git pop
+--Merges your stashed file with your current file stashed
 

@@ -27,3 +27,12 @@ git pull
 git pop
 --Merges your stashed file with your current file stashed
 
+git branch (name)
+--Creates a new branch
+
+git checkout (branchName)
+--Switches to a new branch.  Entering master will bring you back to the master branch.
+
+git merge (BranchName)
+--Merges the branch to the master branch.
+

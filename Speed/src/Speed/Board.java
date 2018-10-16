@@ -145,6 +145,7 @@ public class Board
 			}
 		}		
 		
+		//Set matches
 		if(matches[0][0] == 1)
 			a1.bHasMatch = true;
 		if(matches[0][1] == 1)
@@ -203,6 +204,5 @@ public class Board
 		
 		return false;
 	}
-	
-	
+		
 }

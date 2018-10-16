@@ -6,7 +6,7 @@ package playingCards;
  * @dueDate 6/23/18
  * @description defines the Suit Enumerator
  */
-public enum Suit {
+enum Suit {
     
     SPADES("1"),
     HEARTS("2"),

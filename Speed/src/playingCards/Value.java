@@ -1,12 +1,11 @@
 package playingCards;
-
-/**
+/*
 *
 * @author Taylen Wanner
 * @dueDate 6/23/18
 * @description Defines the Value Enumerator
 */
-public enum Value {
+enum Value {
    
    TWO(2),
    THREE(3),

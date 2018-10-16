@@ -2,7 +2,6 @@ package playingCards;
 /*
 *
 * @author Taylen Wanner
-* @dueDate 6/23/18
 * @description Defines the Value Enumerator
 */
 enum Value {

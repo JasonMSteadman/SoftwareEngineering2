@@ -1,12 +1,8 @@
 package playingCards;
 
-
-
-
 /**
 *
 * @author Taylen Wanner
-* @dueDate 6/23/18
 * @description Hand class extends GroupOfCards
 */
 public class Hand extends CardGroup{

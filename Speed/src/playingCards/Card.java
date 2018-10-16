@@ -2,7 +2,6 @@ package playingCards;
 /**
 *
 * @author Taylen Wanner
-* @dueDate 6/23/18
 * @description Card class, creates card objects based off the Enumerators
 */
 public class Card {

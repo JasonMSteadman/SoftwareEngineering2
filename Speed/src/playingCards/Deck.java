@@ -1,12 +1,8 @@
 package playingCards;
 
-
-
-
 /**
  *
  * @author Taylen Wanner
- * @dueDate 6/23/18
  * @description Deck class extends GroupOfCards
  */
 public class Deck extends CardGroup{

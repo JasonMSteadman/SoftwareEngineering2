@@ -3,7 +3,6 @@ package playingCards;
 /**
  *
  * @author Taylen Wanner
- * @dueDate 6/23/18
  * @description defines the Suit Enumerator
  */
 enum Suit {

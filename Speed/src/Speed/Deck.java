@@ -18,4 +18,17 @@ public class Deck extends Hand
 		return temp;
 	}
 	
+	public boolean addCard(Card input)
+	{
+		//	Track error
+		boolean bError = super.addCard(input);
+		
+		//	If there is no error, remove the match status of the card
+		if(!bError)
+			bHasMatch = false;
+		
+		return bError;
+	}
+
+	
 }

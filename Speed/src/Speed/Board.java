@@ -109,7 +109,7 @@ public class Board
 	}
 	
 	//Find matches and mark them
-	public void checkMatches()
+	public int checkMatches()
 	{
 		int cardValues[][] = new int[2][4];			//Holds the card value
 		oldMatches();			//Update matches
@@ -163,6 +163,18 @@ public class Board
 			b3.bHasMatch = true;
 		if(matches[1][3] == 1)	
 			b4.bHasMatch = true;
+		
+		//Player one wins
+		if(player1.viewTop() == -1)
+			return 1;
+		
+		//Player two wins
+		if(player2.viewTop() == -1)
+			return 2;
+		
+		//No winner
+		return 0;
+		
 	}
 	
 	//Keeps mold matches.  This is used for when one of the cards is covered, but the other match remains.
@@ -200,8 +212,46 @@ public class Board
 	public boolean checkMatch(int row, int column)
 	{
 		if(matches[row][column] == 1)
+		{
+			if(row == 0)
+			{
+				switch(column)
+				{
+					case 0:
+						a1.addCard(player1.removeCard());
+						break;
+					case 1:
+						a2.addCard(player1.removeCard());
+						break;
+					case 2:
+						a3.addCard(player1.removeCard());
+						break;
+					case 3:
+						a4.addCard(player1.removeCard());
+						break;
+				}
+			}
+			else
+			{
+				switch(column)
+				{
+					case 0:
+						b1.addCard(player1.removeCard());
+						break;
+					case 1:
+						b2.addCard(player1.removeCard());
+						break;
+					case 2:
+						b3.addCard(player1.removeCard());
+						break;
+					case 3:
+						b4.addCard(player1.removeCard());
+						break;
+				}	
+			}
+			checkMatches();
 			return true;
-		
+		}
 		return false;
 	}
 		

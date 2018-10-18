@@ -49,6 +49,10 @@ public class Hand {
 	//View the value of the top card
 	public int viewTop()
 	{
+		//Empty hand
+		if(pile.empty())
+			return -1;
+		
 		return pile.peek().iValue;
 	}
 	

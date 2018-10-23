@@ -9,6 +9,7 @@ public class Board
 	private Deck a1, a2, a3, a4, b1, b2, b3, b4;
 	private Hand player1, player2;
 	private int matches[][];
+	private String sPlayer1, sPlayer2;
 	
 	public Board()
 	{
@@ -61,51 +62,70 @@ public class Board
 	}
 	
 	//View top card
-	public int getCarda1()
+	public String getCarda1()
 	{
-		return a1.pile.peek().iValue;
+		return a1.pile.peek().iValue + "";
 	}
 
 	//View top card
-	public int getCarda2()
+	public String getCarda2()
 	{
-		return a2.pile.peek().iValue;
+		return a2.pile.peek().iValue + "";
 	}
 
 	//View top card
-	public int getCarda3()
+	public String getCarda3()
 	{
-		return a3.pile.peek().iValue;
+		return a3.pile.peek().iValue + "";
 	}
 	
 	//View top card
-	public int getCarda4()
+	public String getCarda4()
 	{
-		return a4.pile.peek().iValue;
+		return a4.pile.peek().iValue + "";
 	}
 	
 	//View top card
-	public int getCardb1()
+	public String getCardb1()
 	{
-		return b1.pile.peek().iValue;
+		return b1.pile.peek().iValue + "";
 	}
 	
 	//View top card
-	public int getCardb2()
+	public String getCardb2()
 	{
-		return b2.pile.peek().iValue;
+		return b2.pile.peek().iValue + "";
 	}
 	
 	//View top card
-	public int getCardb3()
+	public String getCardb3()
 	{
-		return b3.pile.peek().iValue;
+		return b3.pile.peek().iValue + "";
 	}
 	
 	//View top card
-	public int getCardb4()
+	public String getCardb4()
 	{
-		return b4.pile.peek().iValue;
+		return b4.pile.peek().iValue + "";
+	}
+	//	Get card held by player one
+	public String getPlayer1Card()
+	{
+		String sTemp = player1.pile.peek() + "";
+		if(sTemp.equals("-1"))
+			return "";
+		else
+			return sTemp;
+	}
+
+	//	Get card held by player two
+	public String getPlayer2Card()
+	{
+		String sTemp = player2.pile.peek() + "";
+		if(sTemp.equals("-1"))
+			return "";
+		else
+			return sTemp;
 	}
 	
 	//Find matches and mark them
@@ -165,11 +185,11 @@ public class Board
 			b4.bHasMatch = true;
 		
 		//Player one wins
-		if(player1.viewTop() == -1)
+		if(player1.viewTop() == -2)
 			return 1;
 		
 		//Player two wins
-		if(player2.viewTop() == -1)
+		if(player2.viewTop() == -2)
 			return 2;
 		
 		//No winner
@@ -209,50 +229,135 @@ public class Board
 	}
 	
 	//Check for matches
-	public boolean checkMatch(int row, int column)
+	public boolean checkMatch(int row, int column, String ID)
 	{
-		if(matches[row][column] == 1)
+		if(sPlayer1.equals(ID))
 		{
-			if(row == 0)
+			if(matches[row][column] == 1)
 			{
-				switch(column)
+				if(row == 0)
 				{
-					case 0:
-						a1.addCard(player1.removeCard());
-						break;
-					case 1:
-						a2.addCard(player1.removeCard());
-						break;
-					case 2:
-						a3.addCard(player1.removeCard());
-						break;
-					case 3:
-						a4.addCard(player1.removeCard());
-						break;
+					switch(column)
+					{
+						case 0:
+							a1.addCard(player1.removeCard());
+							break;
+						case 1:
+							a2.addCard(player1.removeCard());
+							break;
+						case 2:
+							a3.addCard(player1.removeCard());
+							break;
+						case 3:
+							a4.addCard(player1.removeCard());
+							break;
+					}
 				}
-			}
-			else
-			{
-				switch(column)
+				else
 				{
-					case 0:
-						b1.addCard(player1.removeCard());
-						break;
-					case 1:
-						b2.addCard(player1.removeCard());
-						break;
-					case 2:
-						b3.addCard(player1.removeCard());
-						break;
-					case 3:
-						b4.addCard(player1.removeCard());
-						break;
-				}	
+					switch(column)
+					{
+						case 0:
+							b1.addCard(player1.removeCard());
+							break;
+						case 1:
+							b2.addCard(player1.removeCard());
+							break;
+						case 2:
+							b3.addCard(player1.removeCard());
+							break;
+						case 3:
+							b4.addCard(player1.removeCard());
+							break;
+					}	
+				}
+				if(player2.pile.peek().iValue != -2)
+					player1.pile.push(new Card(-1));
+				checkMatches();
+				return true;
 			}
-			checkMatches();
+			return false;
+		}
+		else if(sPlayer2.equals(ID))
+		{
+			if(matches[row][column] == 1)
+			{
+				if(row == 0)
+				{
+					switch(column)
+					{
+						case 0:
+							a1.addCard(player2.removeCard());
+							break;
+						case 1:
+							a2.addCard(player2.removeCard());
+							break;
+						case 2:
+							a3.addCard(player2.removeCard());
+							break;
+						case 3:
+							a4.addCard(player2.removeCard());
+							break;
+					}
+				}
+				else
+				{
+					switch(column)
+					{
+						case 0:
+							b1.addCard(player2.removeCard());
+							break;
+						case 1:
+							b2.addCard(player2.removeCard());
+							break;
+						case 2:
+							b3.addCard(player2.removeCard());
+							break;
+						case 3:
+							b4.addCard(player2.removeCard());
+							break;
+					}	
+				}
+				if(player2.pile.peek().iValue != -2)
+					player2.pile.push(new Card(-1));
+				checkMatches();
+				return true;
+			}
+			return false;
+		}
+		else 
+			return false;
+	}
+	
+	//	Set player one
+	public boolean setPlayer1(String ID)
+	{
+		if(sPlayer1.equals(null))
+		{
+			sPlayer1 = ID;
 			return true;
 		}
 		return false;
+	}
+	
+	//	Set player two
+	public boolean setPlayer2(String ID)
+	{
+		if(sPlayer2.equals(null))
+		{
+			sPlayer2 = ID;
+			return true;
+		}
+		return false;
+	}
+	
+	//	Draw card
+	public void drawCard(String ID)
+	{
+		if(sPlayer1.equals(ID))
+			player1.pile.pop();
+		if(sPlayer2.equals(ID))
+			player2.pile.pop();
 	}
 		
 }

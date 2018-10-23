@@ -28,7 +28,8 @@ function addPlayer(playerID){
 		player = playerID;
 	}
 	else if (game.setPlayer2(ID)){
-		pplayer = playerID;
+		player = playerID;
+		
 	}
 }
 

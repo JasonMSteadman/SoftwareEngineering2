@@ -1,6 +1,6 @@
 package Speed;
 
-import java.awt.Container;
+//import java.awt.Container;
 import java.util.Collections;
 import java.util.Stack;
 
@@ -14,7 +14,7 @@ public class Board
 	public Board()
 	{
 		matches = new int[2][4];
-		Stack<Card> temp = new Stack();
+		Stack<Card> temp = new Stack<Card>();
 		//Generate cards
 		for(int i = 1; i < 15; ++i)
 		{

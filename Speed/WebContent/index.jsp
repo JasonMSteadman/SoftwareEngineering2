@@ -109,50 +109,51 @@
 		<!-- <h1 class="col-3"><% out.println("This is Speed!"); %></h1> -->
 		
 		<div class="col-15">
-			<p class="floatCenter"><% out.println("Player 1"); %></p>
-			<img src ="/Images/red_back.png" width="107px" height="150px" class="rotate90">
+			<p class="floatCenter"></p>
+			<img src ="Images/red_back.png" width="107px" height="150px" class="rotate90">
 		</div>
 		
 		<div class="col-1">
 			<p class="col-13">
-				<img src ="/Images/ACEofSPADES.png" width="107px" height="150px" >
+				<img src ="Images/red_back.png" width="107px" height="150px" id="b1" onclick="sendMessage('b1')" >
 			</p>
 			
 			<p class="col-13">
-				<img src ="/Images/ACEofHEARTS.png" width="107px" height="150px" >
+				<img src ="Images/red_back.png" width="107px" height="150px" id="b2" onclick="sendMessage('b2')">
 			</p>
 			
 			<p class="col-13">
-				<img src ="/Images/ACEofCLUBS.png" width="107px" height="150px" >
+				<img src ="Images/red_back.png" width="107px" height="150px" id="b3" onclick="sendMessage('b3')">
 			</p>
 			
 			<p class="col-13">
-				<img src ="/Images/ACEofDIAMONDS.png" width="107px" height="150px" >
+				<img src ="Images/red_back.png" width="107px" height="150px" id="b4" onclick="sendMessage('b4')" >
 			</p>
 		</div>
 		
 		<div class="col-1">
 			<p class="col-13">
-				<img src ="/Images/ACEofDIAMONDS.png" width="107px" height="150px" >
+				<img src ="Images/red_back.png" width="107px" height="150px" id="a1" onclick="sendMessage('a1')">
 			</p>
 			
 			<p class="col-13">
-				<img src ="/Images/ACEofSPADES.png" width="107px" height="150px" >
+				<img src ="Images/red_back.png" width="107px" height="150px" id="a2" onclick="sendMessage('a2')">
 			</p>
 			
 			<p class="col-13">
-				<img src ="/Images/ACEofHEARTS.png" width="107px" height="150px" >
+				<img src ="Images/red_back.png" width="107px" height="150px" id="a3" onclick="sendMessage('a3')">
 			</p>
 			
 			<p class="col-13">
-				<img src ="/Images/ACEofCLUBS.png" width="107px" height="150px" >
+				<img src ="Images/red_back.png" width="107px" height="150px" id="a4" onclick="sendMessage('a4')">
 			</p>
 		</div>	
 			
 		<div class="col-15">
-			<img src ="/Images/red_back.png" width="107px" height="150px" class="rotate90">
-			<p ><% out.println("Player 2"); %></p>
+			<img src ="Images/red_back.png" width="107px" height="150px" class="rotate90" id="p" onclick="sendMessage('p')">
+			<p id="role"></p>
 		</div>		
 
+<script type="text/javascript" src="gameAndEvenHandlers.js"></script>
 	</body>
 </html>

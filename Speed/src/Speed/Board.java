@@ -721,5 +721,32 @@ public class Board
 		player2.addCard(new Card(-1));
 		return null;
 	}
+	
+	public void stuck()
+	{
+		//	Place cards into players hands
+		player1.addCard(a1.getDeck());
+		player1.addCard(a2.getDeck());
+		player1.addCard(a3.getDeck());
+		player1.addCard(a4.getDeck());
+		
+		player2.addCard(b1.getDeck());
+		player2.addCard(b2.getDeck());
+		player2.addCard(b3.getDeck());
+		player2.addCard(b4.getDeck());
+		
+		//Populate these decks with one card
+		a1.addCard(player1.removeCard());
+		a2.addCard(player1.removeCard());
+		a3.addCard(player1.removeCard());
+		a4.addCard(player1.removeCard());
+		
+		b1.addCard(player2.removeCard());
+		b2.addCard(player2.removeCard());
+		b3.addCard(player2.removeCard());
+		b4.addCard(player2.removeCard());
+		
+		checkMatches();		
+	}
 		
 }

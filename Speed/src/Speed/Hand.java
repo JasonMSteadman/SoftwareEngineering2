@@ -5,10 +5,15 @@ import java.util.*;
 public class Hand {
 	
 	protected Stack<Card> pile;
+	private Card inHand;
+		
+	public Hand()
+	{
+		pile = new Stack<Card>();
+		inHand =  new Card(-1);
+	}
 	
-	public Hand() {}
-	
-	//Adds a single card
+	//	Adds a single card
 	public boolean addCard(Card input)
 	{
 		try
@@ -22,7 +27,13 @@ public class Hand {
 		return true;
 	}
 	
-	//Adds a group of cards
+	public void drawCard()
+	{
+		if(!pile.empty())
+			inHand = pile.pop();
+	}
+	
+	//	Adds a group of cards
 	public boolean addCard(Stack<Card> input)
 	{
 		try
@@ -40,23 +51,30 @@ public class Hand {
 		return true;
 	}
 	
-	//Removes a single card
+	//	Removes a single card
+	public Card playCard()
+	{
+		Card temp = inHand;
+		inHand = new Card(-1);
+		return temp;
+	}
+	
+	//	Removes a single card
 	public Card removeCard()
 	{
-		return pile.pop();
+		if(!pile.empty())
+			return pile.pop();
+		
+		return null;
 	}
 	
-	//View the value of the top card
+	//	View the value of the top card
 	public int viewTop()
 	{
-		//Empty hand
-		if(pile.empty())
-			return -1;
-		
-		return pile.peek().iValue;
+		return inHand.iValue;
 	}
 	
-	//Shuffles cards
+	//	Shuffles cards
 	public boolean shuffle()
 	{
 		try
@@ -68,5 +86,11 @@ public class Hand {
 			return false;
 		}
 		return true;
+	}
+	
+	//	Empties the hand
+	public void emptyHand()
+	{
+		pile.clear();
 	}
 }

@@ -1,49 +1,29 @@
-/**
- * 
- */
+var websocket = new WebSocket("ws://localhost:8080/Speed/Server")	
 
-//	Game board
-var game;
-var player = ""; 
-
-function staticGame(){
-	  game = new Speed.Board();
-}
-
-//	Creates a static object shared via server
-staticGame.prototype.publicMethod = function () {    
-	  alert(this.publicVariable);
-	};
-	
-game = new staticGame();
-
-//	Start a new game
-function newGame(){
-	delete game;
-	game = new Speed.Board;
-}
-
-function addPlayer(playerID){
-	if(game.setPlayer1(ID)){
-		player = playerID;
+websocket.onmessage = function processMessage(message){
+	var jsonData = JSON.parse(message.data);
+	if(jsonData == null){
+		return;
 	}
-	else if (game.setPlayer2(ID)){
-		pplayer = playerID;
+	else if(jsonData.hasOwnProperty("role")){
+		document.getElementById("role").innerHTML = jsonData.role;
+	}
+	else{
+			
+		document.getElementById("a1").src = jsonData.a1;
+		document.getElementById("a2").src = jsonData.a2;
+		document.getElementById("a3").src = jsonData.a3;
+		document.getElementById("a4").src = jsonData.a4;
+		
+		document.getElementById("b1").src = jsonData.b1;
+		document.getElementById("b2").src = jsonData.b2;
+		document.getElementById("b3").src = jsonData.b3;
+		document.getElementById("b4").src = jsonData.b4;
+		
+		document.getElementById("p").src = jsonData.p;
 	}
 }
 
-document.getElementById("body").onload = function () {addPlayer(document.cookie.match(/JSESSIONID=[^;]+/));};
-
-//	Drag and drop for the first row
-document.getElementById("a1").addEventListener("drop", game.checkMatch(0, 0, player));
-document.getElementById("a2").addEventListener("drop", game.checkMatch(0, 1, player));
-document.getElementById("a3").addEventListener("drop", game.checkMatch(0, 2, player));
-document.getElementById("a4").addEventListener("drop", game.checkMatch(0, 3, player));
-
-//	Drag and drop for the second row
-document.getElementById("b1").addEventListener("drop", game.checkMatch(0, 0, player));
-document.getElementById("b2").addEventListener("drop", game.checkMatch(0, 1, player));
-document.getElementById("b3").addEventListener("drop", game.checkMatch(0, 2, player));
-document.getElementById("b4").addEventListener("drop", game.checkMatch(0, 3, player));
-
-//	TODO Create AJAX connection for the decks and play hand
+function sendMessage(gridLocation){
+	websocket.send(gridLocation);
+}

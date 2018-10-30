@@ -4,153 +4,101 @@
 <html>
 	<head>
 		<meta charset="ISO-8859-1" content="width=device-width, initial-scale=1">
-<!--<link rel="stylesheet" type="text/css" href="../Stylesheets/Site.css"/>-->
+		<link rel="stylesheet" type="text/css" href="html-stylesheet/Site.css">
 		<title>Speed</title>
-		
 		<style>
-			
 			body {
     			padding-top: 50px;
     			padding-bottom: 20px;
-    			height: 750px;
+    			height: 800px;
     			background-color: #cccccc;
     			background-repeat: no-repeat;
     			background-image: radial-gradient(green, mediumseagreen);
 			}
-						
-			[class*="col-"] {
-			    float: left;
-			    padding: 0px;
-			}
-			
-			[class*="tabs*"] {
-			    float: left;
-			    width: 100%;
-			}
-			
-			.col-1 {
-			    width: 100%;
-			    padding-left: 25%;
-			}
-			
-			.col-2 {
-			    width: 25%;
-			}
-			
-			.col-3 {
-			    width: 75%;
-			}
-			
-			.col-4 {
-			    width: 33.33%;
-			}
-			
-			.col-5 {
-			    width: 41.66%;
-			}
-			
-			.col-6 {
-			    width: 50%;
-			}
-			
-			.col-7 {
-			    width: 58.33%;
-			}
-			
-			.col-8 {
-			    width: 66.66%;
-			}
-			
-			.col-9 {
-			    width: 100%;
-			}
-			
-			.col-10 {
-			    width: 85%;
-			}
-			
-			.col-11 {
-			    width: 7.5%;
-			}
-			
-			.col-12 {
-			    width: 15%;
-			}
-			
-			.col-13 {
-			    width: 12.5%;
-			}
-			
-			.col-14 {
-				width: 20%;
-			}
-			
-			.col-15 {
-				width: 100%;
-				padding-left: 43.5%;
-			}
-			
-			.rotate90 {
-    			-webkit-transform: rotate(90deg);
-    			-moz-transform: rotate(90deg);
-    			-o-transform: rotate(90deg);
-    			-ms-transform: rotate(90deg);
-   				transform: rotate(90deg);
-			}
-			
-			.floatCenter{
-				float: center;
-			}
-			
 		</style>
+		
+		<script>	
+		
+			function click() {
+				console.log("Setting image..")
+				var imageSrc = document.getElementByID("test");
+				console.log(imageSrc);
+				imageSrc.src = "/Images/green_back.png"
+			}
+			
+			function changeImage() {
+				console.log("Setting image..")
+				var imageSrc = document.getElementByID("img1");
+				imageSrc.src = "/Images/green_back.png"
+			}
+			
+			function allowDrop(ev) {
+			    ev.preventDefault();
+			}
+
+			function drag(ev) {
+			    ev.dataTransfer.setData("text", ev.target.id);
+			}
+
+			function drop(ev) {
+				changeImage();
+			    ev.preventDefault();
+			    //var data = ev.dataTransfer.getData("text");
+			    //ev.target.style.border = "none";
+		        //ev.preventDefault(); // don't forget this!
+			    //ev.target.removeChild(ev.target.childNodes[0]);
+			    //ev.target.appendChild(document.getElementById(data));
+			    //console.log("dropped");
+			}
+		</script>
+		
 	</head>
 		
 	<body>
-		<!-- <h1 class="col-3"><% out.println("This is Speed!"); %></h1> -->
-		
 		<div class="col-15">
 			<p class="floatCenter"><% out.println("Player 1"); %></p>
-			<img src ="/Images/red_back.png" width="107px" height="150px" class="rotate90">
+			<img id="test" class="pileImage" src ="/Images/red_back.png" draggable="true" ondragstart="drag(event)">
+			<button onclick = "click()">Testing</button>
 		</div>
 		
 		<div class="col-1">
 			<p class="col-13">
-				<img src ="/Images/ACEofSPADES.png" width="107px" height="150px" >
+				<img id="img1" class="image" src ="/Images/ACEofSPADES.png" ondrop="drop(event)" ondragover="allowDrop(event)">
 			</p>
 			
 			<p class="col-13">
-				<img src ="/Images/ACEofHEARTS.png" width="107px" height="150px" >
+				<img id="img2" class="image" src ="/Images/ACEofHEARTS.png">
 			</p>
 			
 			<p class="col-13">
-				<img src ="/Images/ACEofCLUBS.png" width="107px" height="150px" >
+				<img id="img3" class="image" src ="/Images/ACEofCLUBS.png">
 			</p>
 			
 			<p class="col-13">
-				<img src ="/Images/ACEofDIAMONDS.png" width="107px" height="150px" >
+				<img id="img4" class="image" src ="/Images/ACEofDIAMONDS.png">
 			</p>
 		</div>
 		
 		<div class="col-1">
 			<p class="col-13">
-				<img src ="/Images/ACEofDIAMONDS.png" width="107px" height="150px" >
+				<img id="img5" class="image" src ="/Images/ACEofDIAMONDS.png">
 			</p>
 			
 			<p class="col-13">
-				<img src ="/Images/ACEofSPADES.png" width="107px" height="150px" >
+				<img id="img6" class="image" src ="/Images/ACEofSPADES.png">
 			</p>
 			
 			<p class="col-13">
-				<img src ="/Images/ACEofHEARTS.png" width="107px" height="150px" >
+				<img id="img7" class="image" src ="/Images/ACEofHEARTS.png">
 			</p>
 			
 			<p class="col-13">
-				<img src ="/Images/ACEofCLUBS.png" width="107px" height="150px" >
+				<img id="img8" class="image" src ="/Images/ACEofCLUBS.png">
 			</p>
 		</div>	
 			
 		<div class="col-15">
-			<img src ="/Images/red_back.png" width="107px" height="150px" class="rotate90">
+			<img class="pileImage" src ="/Images/red_back.png">
 			<p ><% out.println("Player 2"); %></p>
 		</div>		
 

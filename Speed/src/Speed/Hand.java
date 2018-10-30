@@ -33,6 +33,14 @@ public class Hand {
 			inHand = pile.pop();
 	}
 	
+	//	Take the whole deck
+	public Stack<Card> getDeck()
+	{
+		Stack<Card> temp = pile;
+		pile.clear();
+		return temp;
+	}
+	
 	//	Adds a group of cards
 	public boolean addCard(Stack<Card> input)
 	{

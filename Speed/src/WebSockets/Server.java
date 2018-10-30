@@ -24,12 +24,14 @@ public class Server{
 	static Board game;
 	static String playerOne = null; 
 	static String playerTwo = null;
+	static boolean p1Stuck = false;
+	static boolean p2Stuck = false;
 	
 	@OnOpen
 	public void handleOpen(Session session) 
 	{
 		String sRole;
-		boolean bStartGame = false;		////////////////////////////////////////////////
+		boolean bStartGame = false;		//////////////////////////////////////////////// <-Single player testing
 		//	Set player one and two if none exist
 		if(playerOne == null)
 		{
@@ -83,6 +85,29 @@ public class Server{
 		//	TODO  figure out how to create JSON object in Javascript		
 		if(playerOne == session.getId() || playerTwo == session.getId() )
 		{
+			if(message == "stuck")
+			{
+				if(session.getId() == playerOne && !p1Stuck)
+				{
+					p1Stuck = true;
+					return;
+				}
+				else if(session.getId() == playerTwo && !p2Stuck)
+				{
+					p2Stuck = true;
+					return;
+				}
+				
+				if(p1Stuck && p2Stuck)
+				{
+					game.stuck();
+					refreshBoard();
+					p1Stuck = p2Stuck = false;
+				}
+			}
+			
+			//	Reset stuck button
+			p1Stuck = p2Stuck = false;
 			//	Make player move
 			game.playerMove(session.getId(), message);
 			

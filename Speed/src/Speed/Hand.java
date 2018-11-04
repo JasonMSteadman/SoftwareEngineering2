@@ -5,12 +5,12 @@ import java.util.*;
 public class Hand {
 	
 	protected Stack<Card> pile;
-	private Card inHand;
+	protected Card inHand;
 		
 	public Hand()
 	{
 		pile = new Stack<Card>();
-		inHand =  new Card(-1);
+		inHand =  new Card(0);
 	}
 	
 	//	Adds a single card
@@ -63,8 +63,14 @@ public class Hand {
 	public Card playCard()
 	{
 		Card temp = inHand;
-		inHand = new Card(-1);
+		inHand = new Card(0);
 		return temp;
+	}
+	
+	public void replaceCardInHand()
+	{
+		if(inHand.iValue != 0)
+			addCard(playCard());
 	}
 	
 	//	Removes a single card
@@ -79,7 +85,11 @@ public class Hand {
 	//	View the value of the top card
 	public int viewTop()
 	{
-		return inHand.iValue;
+		//	Used to find winner
+		if(pile.empty())
+			return 0;
+		
+		return -1;
 	}
 	
 	//	Shuffles cards

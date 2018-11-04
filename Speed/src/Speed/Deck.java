@@ -9,6 +9,7 @@ public class Deck extends Hand
 	public Deck()
 	{
 		bHasMatch = false;
+		inHand = null;
 	}
 	//Returns the Deck to a players hand
 	public Stack<Card> empty()

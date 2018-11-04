@@ -15,12 +15,15 @@ public class Board
 	private Hand player1, player2;
 	private int matches[][];
 	private String sPlayer1, sPlayer2;
+	private int iWinner;
+	private boolean bP1Stuck, bP2Stuck;
 	
 	public Board()
 	{	
+		iWinner = 1;
 		matches = new int[2][4];
 		Stack<Card> temp = new Stack<Card>();
-		//Generate cards
+		//	Generate cards
 		for(int i = 1; i < 14; ++i)
 		{
 			temp.push( new Card(i + 100));		//	Spades
@@ -28,20 +31,21 @@ public class Board
 			temp.push( new Card(i + 300));		//	Hearts
 			temp.push( new Card(i + 400));		//	Diamonds
 		}
-		//Shuffle
+		//	Shuffle
 		Collections.shuffle(temp);
 		
-		//Create players hands
+		//	Create players hands
 		player1 = new Hand();
 		player2 = new Hand();
 		
-		//Split deck (deal cards)
+		//	Split deck (deal cards)
 		while(!temp.empty())
 		{
 			player1.addCard(temp.pop());
 			player2.addCard(temp.pop());
 		}
-		//Create the 8 decks on the board
+		
+		//	Create the 8 decks on the board
 		a1 = new Deck();
 		a2 = new Deck();
 		a3 = new Deck();
@@ -191,12 +195,20 @@ public class Board
 			b4.bHasMatch = true;
 		
 		//Player one wins
-		if(player1.viewTop() == -2)
+		if(player1.viewTop() == 0 && player1.inHand.iValue == 0)
+		{
+			resetBoard();
+			iWinner = 1;
 			return 1;
+		}
 		
 		//Player two wins
-		if(player2.viewTop() == -2)
+		if(player2.viewTop() == 0 && player2.inHand.iValue == 0)
+		{
+			resetBoard();
+			iWinner = 2;
 			return 2;
+		}
 		
 		//No winner
 		return 0;
@@ -368,6 +380,10 @@ public class Board
 			case -1:
 				card.append("red_back.png");
 				break;
+			case 0:
+				card = new StringBuilder();
+				card.append("");
+				break;
 			case 1:
 				card.append("ACEof");
 				break;
@@ -449,7 +465,9 @@ public class Board
 					.add("b2", getCardImg(getCardb2()))
 					.add("b3", getCardImg(getCardb3()))
 					.add("b4", getCardImg(getCardb4()))
-					.add("p", getCardImg(getPlayer1Card())).build();
+					.add("deck", getCardImg(getPlayer1Card()))
+					.add("hand", getCardImg(player1.inHand.iValue))
+					.add("w", iWinner + "").build();
 		}
 		//	Player Two's view of the board
 		else if(player == sPlayer2)
@@ -463,9 +481,25 @@ public class Board
 					.add("b2", getCardImg(getCarda2()))
 					.add("b3", getCardImg(getCarda3()))
 					.add("b4", getCardImg(getCarda4()))
-					.add("p", getCardImg(getPlayer2Card())).build();
+					.add("deck", getCardImg(getPlayer2Card()))
+					.add("hand", getCardImg(player2.inHand.iValue))
+					.add("w", iWinner + "").build();
 		}
-		
+		else
+		{
+			boardStat = Json.createObjectBuilder()
+					.add("a1",getCardImg(getCarda1()))
+					.add("a2", getCardImg(getCarda2()))
+					.add("a3", getCardImg(getCarda3()))
+					.add("a4", getCardImg(getCarda4()))
+					.add("b1", getCardImg(getCardb1()))
+					.add("b2", getCardImg(getCardb2()))
+					.add("b3", getCardImg(getCardb3()))
+					.add("b4", getCardImg(getCardb4()))
+					.add("deck", getCardImg(-1))
+					.add("hand", getCardImg(-1))
+					.add("w", iWinner + "").build();
+		}
 		return boardStat;
 	}
 	
@@ -475,13 +509,23 @@ public class Board
 
 		if(player == sPlayer1)
 		{
-			if(move.equals("p"))
+			if(move.equals("stuck"))
+			{
+				bP1Stuck = true;
+				if(bP2Stuck == true)
+				{
+					stuck();
+					return null;
+				}
+			}
+			
+			if(move.equals("p") && player1.inHand.iValue == 0)
 			{
 				player1.drawCard();
 				return null;
 			}
 			
-			if(player1.viewTop() == -1)
+			if(player1.inHand.iValue == 0)
 				return null;
 			
 			if(move.charAt(0) == 'a')
@@ -502,6 +546,7 @@ public class Board
 						{
 							a1.addCard(player1.playCard());
 							a1.bHasMatch = false;
+							bP1Stuck = bP2Stuck = false;
 						}
 						break;
 					
@@ -510,6 +555,7 @@ public class Board
 						{
 							a2.addCard(player1.playCard());
 							a2.bHasMatch = false;
+							bP1Stuck = bP2Stuck = false;
 						}
 						break;
 						
@@ -518,6 +564,7 @@ public class Board
 						{
 							a3.addCard(player1.playCard());
 							a3.bHasMatch = false;
+							bP1Stuck = bP2Stuck = false;
 						}
 						break;
 					
@@ -526,6 +573,7 @@ public class Board
 						{
 							a4.addCard(player1.playCard());
 							a4.bHasMatch = false;
+							bP1Stuck = bP2Stuck = false;
 						}
 						break;
 				}
@@ -549,6 +597,7 @@ public class Board
 						{
 							b1.addCard(player1.playCard());
 							b1.bHasMatch = false;
+							bP1Stuck = bP2Stuck = false;
 						}
 						break;
 					
@@ -557,6 +606,7 @@ public class Board
 						{
 							b2.addCard(player1.playCard());
 							b2.bHasMatch = false;
+							bP1Stuck = bP2Stuck = false;
 						}
 						break;
 						
@@ -565,6 +615,7 @@ public class Board
 						{
 							b3.addCard(player1.playCard());
 							b3.bHasMatch = false;
+							bP1Stuck = bP2Stuck = false;
 						}
 						break;
 					
@@ -573,6 +624,7 @@ public class Board
 						{
 							b4.addCard(player1.playCard());
 							b4.bHasMatch = false;
+							bP1Stuck = bP2Stuck = false;
 						}
 						break;
 				}
@@ -581,13 +633,22 @@ public class Board
 		
 		if(player == sPlayer2)
 		{
-			if(move.equals("p"))
+			if(move.equals("stuck"))
+			{
+				bP2Stuck = true;
+				if(bP1Stuck == true)
+				{
+					stuck();
+					return null;
+				}
+			}
+			if(move.equals("p") && player2.inHand.iValue == 0)
 			{
 				player2.drawCard();
 				return null;
 			}
 			
-			if(player2.viewTop() == -1)
+			if(player2.inHand.iValue == 0)
 				return null;
 			
 			if(move.charAt(0) == 'b')		//	Flips board for player two
@@ -608,6 +669,7 @@ public class Board
 						{
 							a1.addCard(player2.playCard());
 							a1.bHasMatch = false;
+							bP1Stuck = bP2Stuck = false;
 						}
 						break;
 					
@@ -616,6 +678,7 @@ public class Board
 						{
 							a2.addCard(player2.playCard());
 							a2.bHasMatch = false;
+							bP1Stuck = bP2Stuck = false;
 						}
 						break;
 						
@@ -624,6 +687,7 @@ public class Board
 						{
 							a3.addCard(player2.playCard());
 							a3.bHasMatch = false;
+							bP1Stuck = bP2Stuck = false;
 						}
 						break;
 					
@@ -632,6 +696,7 @@ public class Board
 						{
 							a4.addCard(player2.playCard());
 							a4.bHasMatch = false;
+							bP1Stuck = bP2Stuck = false;
 						}
 						break;
 				}
@@ -655,6 +720,7 @@ public class Board
 						{
 							b1.addCard(player2.playCard());
 							b1.bHasMatch = false;
+							bP1Stuck = bP2Stuck = false;
 						}
 						break;
 					
@@ -663,6 +729,7 @@ public class Board
 						{
 							b2.addCard(player2.playCard());
 							b2.bHasMatch = false;
+							bP1Stuck = bP2Stuck = false;
 						}
 						break;
 						
@@ -671,6 +738,7 @@ public class Board
 						{
 							b3.addCard(player2.playCard());
 							b3.bHasMatch = false;
+							bP1Stuck = bP2Stuck = false;
 						}
 						break;
 					
@@ -679,18 +747,20 @@ public class Board
 						{
 							b4.addCard(player2.playCard());
 							b4.bHasMatch = false;
+							bP1Stuck = bP2Stuck = false;
 						}
 						break;
 				}
 			}
 		}
-		checkMatches();
+		iWinner = checkMatches();
 		
 		return getBoardImg(player);
 	}
 	
 	public JsonObject resetBoard()
 	{
+		iWinner = 0;
 		//	Empty all cards
 		a1.emptyHand();
 		a2.emptyHand();
@@ -721,19 +791,40 @@ public class Board
 		player2.addCard(new Card(-1));
 		return null;
 	}
-	
-	public void stuck()
+		
+	private void stuck()
 	{
-		//	Place cards into players hands
+		bP1Stuck = bP2Stuck = false;
+
+		//	Place card in hand back in deck
+		player1.replaceCardInHand();
+		player2.replaceCardInHand();
+		
+		//	Give players cards from the row closest to then
 		player1.addCard(a1.getDeck());
 		player1.addCard(a2.getDeck());
-		player1.addCard(a3.getDeck());
-		player1.addCard(a4.getDeck());
+		player1.addCard(a2.getDeck());
+		player1.addCard(a2.getDeck());
 		
 		player2.addCard(b1.getDeck());
 		player2.addCard(b2.getDeck());
 		player2.addCard(b3.getDeck());
 		player2.addCard(b4.getDeck());
+		
+		//	Shuffle their decks
+		Collections.shuffle(player1.pile);
+		Collections.shuffle(player2.pile);
+		
+		//	Create the 8 decks on the board
+		a1 = new Deck();
+		a2 = new Deck();
+		a3 = new Deck();
+		a4 = new Deck();
+		
+		b1 = new Deck();
+		b2 = new Deck();
+		b3 = new Deck();
+		b4 = new Deck();
 		
 		//Populate these decks with one card
 		a1.addCard(player1.removeCard());
@@ -746,7 +837,7 @@ public class Board
 		b3.addCard(player2.removeCard());
 		b4.addCard(player2.removeCard());
 		
-		checkMatches();		
+		checkMatches();
+	
 	}
-		
 }

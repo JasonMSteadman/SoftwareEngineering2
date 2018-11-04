@@ -15,43 +15,7 @@
     			background-repeat: no-repeat;
     			background-image: radial-gradient(green, mediumseagreen);
 			}
-		</style>
-		
-		<script>	
-		
-			function click() {
-				console.log("Setting image..")
-				var imageSrc = document.getElementByID("test");
-				console.log(imageSrc);
-				imageSrc.src = "/Images/green_back.png"
-			}
-			
-			function changeImage() {
-				console.log("Setting image..")
-				var imageSrc = document.getElementByID("img1");
-				imageSrc.src = "/Images/green_back.png"
-			}
-			
-			function allowDrop(ev) {
-			    ev.preventDefault();
-			}
-
-			function drag(ev) {
-			    ev.dataTransfer.setData("text", ev.target.id);
-			}
-
-			function drop(ev) {
-				changeImage();
-			    ev.preventDefault();
-			    //var data = ev.dataTransfer.getData("text");
-			    //ev.target.style.border = "none";
-		        //ev.preventDefault(); // don't forget this!
-			    //ev.target.removeChild(ev.target.childNodes[0]);
-			    //ev.target.appendChild(document.getElementById(data));
-			    //console.log("dropped");
-			}
-		</script>
-		
+		</style>	
 	</head>
 		
 	<body>
@@ -60,10 +24,9 @@
 		
 			<!-- Player 1 Hands -->
 			<div class="col-15" >
-				<p ><% out.println("Player 1"); %></p>
-				<img class="pileImage" src ="/Images/red_back.png">
-				<img src ="Images/red_back.png" class="pileImage" id="p" onclick="sendMessage('p')">
-				<p id="role"></p>
+				<img class="pileImage" src ="Images/red_back.png">
+				<img src ="Images/red_back.png" class="pileImage" id="o">
+				<p></p>
 			</div>	<!-- End of Player 1 Hands -->
 			
 			<!-- Top Row -->
@@ -86,8 +49,8 @@
 			</div> <!-- End of Top Row -->
 			
 			<div class="col-2">
-				<button type="button">Stuck</button>
-				<form>[Player] Wins!</form>
+				<button type="button" onclick="sendMessage('stuck')">Stuck</button>
+				<p id="winner"></p>
 			</div>
 			
 			<!-- Bottom Row -->
@@ -111,14 +74,13 @@
 				
 			<!-- Player 2 Hands -->
 			<div class="col-15" >
-				<p ><% out.println("Player 2"); %></p>
-				<img class="pileImage" src ="/Images/red_back.png">
-				<img src ="Images/red_back.png" class="pileImage" id="p" onclick="sendMessage('p')">
+				<img class="pileImage" src ="Images/red_back.png" id="hand">
+				<img src ="Images/red_back.png" class="pileImage" id="deck"  onclick="sendMessage('p')">
 				<p id="role"></p>
 			</div>	<!-- End of Player 2 Hands -->
 			
 		</div>
 
-<script type="text/javascript" src="gameAndEvenHandlers.js"></script>
+<script type="text/javascript" src="JavaScript/gameAndEvenHandlers.js"></script>
 	</body>
 </html>

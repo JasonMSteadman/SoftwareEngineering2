@@ -24,14 +24,12 @@ public class Server{
 	static Board game;
 	static String playerOne = null; 
 	static String playerTwo = null;
-	static boolean p1Stuck = false;
-	static boolean p2Stuck = false;
 	
 	@OnOpen
 	public void handleOpen(Session session) 
 	{
 		String sRole;
-		boolean bStartGame = false;		//////////////////////////////////////////////// <-Single player testing
+		boolean bStartGame = true;		////////////////////////////////////////////////
 		//	Set player one and two if none exist
 		if(playerOne == null)
 		{
@@ -85,29 +83,6 @@ public class Server{
 		//	TODO  figure out how to create JSON object in Javascript		
 		if(playerOne == session.getId() || playerTwo == session.getId() )
 		{
-			if(message == "stuck")
-			{
-				if(session.getId() == playerOne && !p1Stuck)
-				{
-					p1Stuck = true;
-					return;
-				}
-				else if(session.getId() == playerTwo && !p2Stuck)
-				{
-					p2Stuck = true;
-					return;
-				}
-				
-				if(p1Stuck && p2Stuck)
-				{
-					game.stuck();
-					refreshBoard();
-					p1Stuck = p2Stuck = false;
-				}
-			}
-			
-			//	Reset stuck button
-			p1Stuck = p2Stuck = false;
 			//	Make player move
 			game.playerMove(session.getId(), message);
 			
@@ -165,10 +140,11 @@ public class Server{
 		while(iter.hasNext()) 
 		{
 			Session currentSession = iter.next();
+			JsonObject jsonObject = game.getBoardImg(currentSession.getId());
 			StringWriter stringWriter = new StringWriter();
 			//	Make player move and create new board state
 			try (JsonWriter jsonWriter = Json.createWriter(stringWriter)) 
-			{jsonWriter.write(game.getBoardImg(currentSession.getId()));}
+			{jsonWriter.write(jsonObject);}
 			
 			//	Send new board state
 			currentSession.getBasicRemote().sendText(stringWriter.toString());	

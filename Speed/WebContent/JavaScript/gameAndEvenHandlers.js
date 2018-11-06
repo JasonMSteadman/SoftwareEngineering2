@@ -22,7 +22,7 @@ websocket.onmessage = function processMessage(message){
 			document.getElementById("hand").src = jsonData.hand;
 			
 			var winner = jsonData.w;
-			window.alert(winner);
+			//window.alert(winner);
 			if(winner == 0){
 				window.alert(winner);
 				if(winner == "1"){
@@ -40,3 +40,57 @@ websocket.onmessage = function processMessage(message){
 function sendMessage(gridLocation){
 	websocket.send(gridLocation);
 }
+
+//Drag and drop handlers
+//Events fired when the drag starts
+document.addEventListener("dragstart", function(event) {
+	event.dataTransfer.setData("Image", event.target.src);
+	//document.getElementById("dragTest").innerHTML = "Started to drag the element.";
+	event.target.style.opacity = "0.4";
+});
+
+//Events fired when dragging
+document.addEventListener("drag", function(event) {
+	document.getElementById("dragTest").style.color = "white";
+});
+
+//Events when dragging ends
+document.addEventListener("dragend", function(event) {
+	//document.getElementById("dragTest").innerHTML = "Finished dragging the element.";
+	event.target.style.opacity = "1";
+});
+
+//Events when drag enters the target
+document.addEventListener("dragenter", function(event) {
+	if (event.target.className == "image") {
+		event.target.style.border = "2px dotted yellow";
+	}
+});
+
+//Prevents default handling of element
+document.addEventListener("dragover", function(event) {
+	event.preventDefault();
+	//event.getElementById("dragTest").innerHTML = String(event.target.id) + "";
+});
+
+//Events when drag leaves target, i.e. resets
+document.addEventListener("dragleave", function(event) {
+	if (event.target.className == "image") {
+		event.target.style.border = "";
+	}
+});
+
+//Events on drop
+document.addEventListener("drop", function(event) {
+	event.preventDefault();
+	if(event.target.className == "image") {
+		//document.getElementById("dragTest").innerHTML = String(event.target.id);
+		document.getElementById("dragTest").style.color = "";
+		
+		event.target.style.border = "";
+		//var data = event.dataTransfer.getData("Image");
+		//event.target.appedChild(document.getElementById(data));
+		sendMessage(event.target.id);
+		
+	}
+});

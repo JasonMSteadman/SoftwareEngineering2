@@ -21,22 +21,7 @@ websocket.onmessage = function processMessage(message){
 			document.getElementById("deck").src = jsonData.deck;
 
 			document.getElementById("hand").src = jsonData.hand;
-<<<<<<< HEAD
-			document.getElementById("winner").value = jsonData.w;
-=======
-			
-			var winner = jsonData.w;
-			//window.alert(winner);
-			if(winner == 0){
-				window.alert(winner);
-				if(winner == "1"){
-					document.getElementById("winner").value = "Player One has won the game!";
-				}
-				if(winner == "2"){
-					document.getElementById("winner").value = "Player Two has won the game!";
-				}
-			}
->>>>>>> 60af6ac164606fba3bd0e8cd66c98a681e16e33d
+			document.getElementById("winner").innerHTML = jsonData.w;
 				
 		}
 	}

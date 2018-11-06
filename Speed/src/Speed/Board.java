@@ -381,8 +381,7 @@ public class Board
 				card.append("red_back.png");
 				break;
 			case 0:
-				card = new StringBuilder();
-				card.append("");
+				card.append("background.jpg");
 				break;
 			case 1:
 				card.append("ACEof");
@@ -483,7 +482,7 @@ public class Board
 					.add("b4", getCardImg(getCarda4()))
 					.add("deck", getCardImg(getPlayer2Card()))
 					.add("hand", getCardImg(player2.inHand.iValue))
-					.add("w", iWinner + "").build();
+					.add("w", getWinner()).build();
 		}
 		else
 		{
@@ -498,7 +497,7 @@ public class Board
 					.add("b4", getCardImg(getCardb4()))
 					.add("deck", getCardImg(-1))
 					.add("hand", getCardImg(-1))
-					.add("w", iWinner + "").build();
+					.add("w", getWinner()).build();
 		}
 		return boardStat;
 	}
@@ -839,5 +838,17 @@ public class Board
 		
 		checkMatches();
 	
+	}
+	
+	private String getWinner()
+	{
+		switch(iWinner)
+		{
+			case 1:
+				return "Player One has won!";
+			case 2:
+				return "Player Two has won!";
+		}
+		return "";
 	}
 }

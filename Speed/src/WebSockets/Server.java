@@ -29,13 +29,14 @@ public class Server{
 	public void handleOpen(Session session) 
 	{
 		String sRole;
-		boolean bStartGame = true;		////////////////////////////////////////////////
+		boolean bStartGame = false;		////////////////////////////////////////////////
+
 		//	Set player one and two if none exist
 		if(playerOne == null)
 		{
 			playerOne = session.getId();
 			sRole = "Player One";
-
+			
 			//	If player two is already in the game
 			if(playerTwo != null)
 				bStartGame = true;			
@@ -61,6 +62,7 @@ public class Server{
 		}
 		
 		users.add(session);
+		System.out.println(bStartGame);
 		if(bStartGame)
 		{
 			game = new Board();
@@ -69,6 +71,7 @@ public class Server{
 			try
 			{
 				refreshBoard();
+				bStartGame = false;
 			}
 			catch (Exception e)
 			{
@@ -110,8 +113,9 @@ public class Server{
 		
 		//	End game if one of the players leave
 		if(playerOne == null || playerTwo == null)
+		{
 			game.resetBoard();
-
+		}
 		//	Refresh board state
 		try
 		{

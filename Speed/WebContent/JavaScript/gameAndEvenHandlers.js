@@ -19,19 +19,9 @@ websocket.onmessage = function processMessage(message){
 			document.getElementById("b3").src = jsonData.b3;
 			document.getElementById("b4").src = jsonData.b4;
 			document.getElementById("deck").src = jsonData.deck;
+
 			document.getElementById("hand").src = jsonData.hand;
-			
-			var winner = jsonData.w;
-			window.alert(winner);
-			if(winner == 0){
-				window.alert(winner);
-				if(winner == "1"){
-					document.getElementById("winner").value = "Player One has won the game!";
-				}
-				if(winner == "2"){
-					document.getElementById("winner").value = "Player Two has won the game!";
-				}
-			}
+			document.getElementById("winner").value = jsonData.w;
 				
 		}
 	}

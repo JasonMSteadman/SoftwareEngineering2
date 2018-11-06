@@ -30,7 +30,10 @@ public class Server{
 	{
 		String sRole;
 		boolean bStartGame = false;		////////////////////////////////////////////////
+<<<<<<< HEAD
 
+=======
+>>>>>>> 60af6ac164606fba3bd0e8cd66c98a681e16e33d
 		//	Set player one and two if none exist
 		if(playerOne == null)
 		{
@@ -83,7 +86,7 @@ public class Server{
 	@OnMessage
 	public void handleMessage(String message, Session session) throws IOException
 	{
-		//	TODO  figure out how to create JSON object in Javascript		
+		//	TODO  figure out how to create JSON object in JavaScript		
 		if(playerOne == session.getId() || playerTwo == session.getId() )
 		{
 			//	Make player move

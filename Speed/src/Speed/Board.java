@@ -20,7 +20,7 @@ public class Board
 	
 	public Board()
 	{	
-		iWinner = 1;
+		iWinner = 0;
 		matches = new int[2][4];
 		Stack<Card> temp = new Stack<Card>();
 		//	Generate cards
@@ -366,6 +366,7 @@ public class Board
 			player2.removeCard();
 	}
 	
+	//	Creates a sources for card images
 	public String getCardImg(int id)
 	{
 		StringBuilder card = new StringBuilder();
@@ -447,6 +448,7 @@ public class Board
 		
 		return card.toString();
 	}
+	
 	//	Returns the location of the card image
 	public JsonObject getBoardImg(String player)
 	{
@@ -466,7 +468,7 @@ public class Board
 					.add("b4", getCardImg(getCardb4()))
 					.add("deck", getCardImg(getPlayer1Card()))
 					.add("hand", getCardImg(player1.inHand.iValue))
-					.add("w", iWinner + "").build();
+					.add("w", getWinner()).build();
 		}
 		//	Player Two's view of the board
 		else if(player == sPlayer2)
@@ -502,6 +504,7 @@ public class Board
 		return boardStat;
 	}
 	
+	//	This method controls how the board interacts with the GUI
 	public JsonObject playerMove(String player, String move)
 	{
 		int temp;
@@ -757,6 +760,7 @@ public class Board
 		return getBoardImg(player);
 	}
 	
+	//	Resets the board, currently used when a player leaves the game
 	public JsonObject resetBoard()
 	{
 		iWinner = 0;
@@ -790,7 +794,8 @@ public class Board
 		player2.addCard(new Card(-1));
 		return null;
 	}
-		
+	
+	//	Used to redeal the cards when players are stuck
 	private void stuck()
 	{
 		bP1Stuck = bP2Stuck = false;
@@ -840,6 +845,7 @@ public class Board
 	
 	}
 	
+	//	Lets the server know if there is a winner
 	private String getWinner()
 	{
 		switch(iWinner)

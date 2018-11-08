@@ -29,7 +29,7 @@ public class Server{
 	public void handleOpen(Session session) 
 	{
 		String sRole;
-		boolean bStartGame = false;		////////////////////////////////////////////////
+		boolean bStartGame = false;
 
 		//	Set player one and two if none exist
 		if(playerOne == null)

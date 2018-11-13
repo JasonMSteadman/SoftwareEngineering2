@@ -472,16 +472,16 @@ public class Board
 		}
 		//	Player Two's view of the board
 		else if(player == sPlayer2)
-		{
+		{	//TODO
 			boardStat = Json.createObjectBuilder()
-					.add("a1",getCardImg(getCardb1()))
-					.add("a2", getCardImg(getCardb2()))
-					.add("a3", getCardImg(getCardb3()))
-					.add("a4", getCardImg(getCardb4()))
-					.add("b1", getCardImg(getCarda1()))
-					.add("b2", getCardImg(getCarda2()))
-					.add("b3", getCardImg(getCarda3()))
-					.add("b4", getCardImg(getCarda4()))
+					.add("a1",getCardImg(getCardb4()))
+					.add("a2", getCardImg(getCardb3()))
+					.add("a3", getCardImg(getCardb2()))
+					.add("a4", getCardImg(getCardb1()))
+					.add("b1", getCardImg(getCarda4()))
+					.add("b2", getCardImg(getCarda3()))
+					.add("b3", getCardImg(getCarda2()))
+					.add("b4", getCardImg(getCarda1()))
 					.add("deck", getCardImg(getPlayer2Card()))
 					.add("hand", getCardImg(player2.inHand.iValue))
 					.add("w", getWinner()).build();
@@ -667,7 +667,7 @@ public class Board
 				switch(temp)
 				{
 					case 0:
-						if(matches[0][0] == 1)
+						if(matches[0][3] == 1)
 						{
 							a1.addCard(player2.playCard());
 							a1.bHasMatch = false;
@@ -676,7 +676,7 @@ public class Board
 						break;
 					
 					case 1:
-						if(matches[0][1] == 1)
+						if(matches[0][2] == 1)
 						{
 							a2.addCard(player2.playCard());
 							a2.bHasMatch = false;
@@ -685,7 +685,7 @@ public class Board
 						break;
 						
 					case 2:
-						if(matches[0][2] == 1)
+						if(matches[0][1] == 1)
 						{
 							a3.addCard(player2.playCard());
 							a3.bHasMatch = false;
@@ -694,7 +694,7 @@ public class Board
 						break;
 					
 					case 3:
-						if(matches[0][3] == 1)
+						if(matches[0][0] == 1)
 						{
 							a4.addCard(player2.playCard());
 							a4.bHasMatch = false;
@@ -718,7 +718,7 @@ public class Board
 				switch(temp)
 				{
 					case 0:
-						if(matches[1][0] == 1)
+						if(matches[1][3] == 1)
 						{
 							b1.addCard(player2.playCard());
 							b1.bHasMatch = false;
@@ -727,7 +727,7 @@ public class Board
 						break;
 					
 					case 1:
-						if(matches[1][1] == 1)
+						if(matches[1][2] == 1)
 						{
 							b2.addCard(player2.playCard());
 							b2.bHasMatch = false;
@@ -736,7 +736,7 @@ public class Board
 						break;
 						
 					case 2:
-						if(matches[1][2] == 1)
+						if(matches[1][1] == 1)
 						{
 							b3.addCard(player2.playCard());
 							b3.bHasMatch = false;
@@ -745,7 +745,7 @@ public class Board
 						break;
 					
 					case 3:
-						if(matches[1][3] == 1)
+						if(matches[1][0] == 1)
 						{
 							b4.addCard(player2.playCard());
 							b4.bHasMatch = false;

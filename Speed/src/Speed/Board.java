@@ -56,7 +56,7 @@ public class Board
 		b3 = new Deck();
 		b4 = new Deck();
 		
-		//Populate these decks with one card
+		//	Populate these decks with one card
 		a1.addCard(player1.removeCard());
 		a2.addCard(player1.removeCard());
 		a3.addCard(player1.removeCard());
@@ -70,49 +70,49 @@ public class Board
 		checkMatches();
 	}
 	
-	//View top card
+	//	View top card
 	public int getCarda1()
 	{
 		return a1.viewTop();
 	}
 
-	//View top card
+	//	View top card
 	public int getCarda2()
 	{
 		return a2.viewTop();
 	}
 
-	//View top card
+	//	View top card
 	public int getCarda3()
 	{
 		return a3.viewTop();
 	}
 	
-	//View top card
+	//	View top card
 	public int getCarda4()
 	{
 		return a4.viewTop();
 	}
 	
-	//View top card
+	//	View top card
 	public int getCardb1()
 	{
 		return b1.viewTop();
 	}
 	
-	//View top card
+	//	View top card
 	public int getCardb2()
 	{
 		return b2.viewTop();
 	}
 	
-	//View top card
+	//	View top card
 	public int getCardb3()
 	{
 		return b3.viewTop();
 	}
 	
-	//View top card
+	//	View top card
 	public int getCardb4()
 	{
 		return b4.viewTop();
@@ -138,10 +138,10 @@ public class Board
 			return sTemp;
 	}
 	
-	//Find matches and mark them
+	//	Find matches and mark them
 	public int checkMatches()
 	{
-		int cardValues[][] = new int[2][4];			//Holds the card value
+		int cardValues[][] = new int[2][4];			//	Holds the card value
 		
 		//	get top cards and remove the suit value
 		cardValues[0][0] = a1.viewTop() % 100;
@@ -155,7 +155,7 @@ public class Board
 		cardValues[1][3] = b4.viewTop() % 100;
 		
 			
-		oldMatches();			//Update matches
+		oldMatches();			//	Update matches
 		
 		for(int row = 0; row < 2; ++row)
 		{
@@ -175,7 +175,7 @@ public class Board
 			}
 		}		
 		
-		//Set matches
+		//	Set matches
 		if(matches[0][0] == 1)
 			a1.bHasMatch = true;
 		if(matches[0][1] == 1)
@@ -194,7 +194,7 @@ public class Board
 		if(matches[1][3] == 1)	
 			b4.bHasMatch = true;
 		
-		//Player one wins
+		//	Player one wins
 		if(player1.viewTop() == 0 && player1.inHand.iValue == 0)
 		{
 			resetBoard();
@@ -202,7 +202,7 @@ public class Board
 			return 1;
 		}
 		
-		//Player two wins
+		//	Player two wins
 		if(player2.viewTop() == 0 && player2.inHand.iValue == 0)
 		{
 			resetBoard();
@@ -210,15 +210,15 @@ public class Board
 			return 2;
 		}
 		
-		//No winner
+		//	No winner
 		return 0;
 		
 	}
 	
-	//Keeps mold matches.  This is used for when one of the cards is covered, but the other match remains.
+	//	Keeps mold matches.  This is used for when one of the cards is covered, but the other match remains.
 	public void oldMatches()
 	{
-		//Load array with default zeros
+		//	Load array with default zeros
 		for(int i = 0; i < 2; ++i)
 			for(int j = 0; j < 4; ++j)
 				matches[i][j] = 0;
@@ -472,7 +472,7 @@ public class Board
 		}
 		//	Player Two's view of the board
 		else if(player == sPlayer2)
-		{	//TODO
+		{
 			boardStat = Json.createObjectBuilder()
 					.add("a1",getCardImg(getCardb4()))
 					.add("a2", getCardImg(getCardb3()))
@@ -669,8 +669,8 @@ public class Board
 					case 0:
 						if(matches[0][3] == 1)
 						{
-							a1.addCard(player2.playCard());
-							a1.bHasMatch = false;
+							a4.addCard(player2.playCard());
+							a4.bHasMatch = false;
 							bP1Stuck = bP2Stuck = false;
 						}
 						break;
@@ -678,8 +678,8 @@ public class Board
 					case 1:
 						if(matches[0][2] == 1)
 						{
-							a2.addCard(player2.playCard());
-							a2.bHasMatch = false;
+							a3.addCard(player2.playCard());
+							a3.bHasMatch = false;
 							bP1Stuck = bP2Stuck = false;
 						}
 						break;
@@ -687,8 +687,8 @@ public class Board
 					case 2:
 						if(matches[0][1] == 1)
 						{
-							a3.addCard(player2.playCard());
-							a3.bHasMatch = false;
+							a2.addCard(player2.playCard());
+							a2.bHasMatch = false;
 							bP1Stuck = bP2Stuck = false;
 						}
 						break;
@@ -696,8 +696,8 @@ public class Board
 					case 3:
 						if(matches[0][0] == 1)
 						{
-							a4.addCard(player2.playCard());
-							a4.bHasMatch = false;
+							a1.addCard(player2.playCard());
+							a1.bHasMatch = false;
 							bP1Stuck = bP2Stuck = false;
 						}
 						break;
@@ -720,8 +720,8 @@ public class Board
 					case 0:
 						if(matches[1][3] == 1)
 						{
-							b1.addCard(player2.playCard());
-							b1.bHasMatch = false;
+							b4.addCard(player2.playCard());
+							b4.bHasMatch = false;
 							bP1Stuck = bP2Stuck = false;
 						}
 						break;
@@ -729,8 +729,8 @@ public class Board
 					case 1:
 						if(matches[1][2] == 1)
 						{
-							b2.addCard(player2.playCard());
-							b2.bHasMatch = false;
+							b3.addCard(player2.playCard());
+							b3.bHasMatch = false;
 							bP1Stuck = bP2Stuck = false;
 						}
 						break;
@@ -738,8 +738,8 @@ public class Board
 					case 2:
 						if(matches[1][1] == 1)
 						{
-							b3.addCard(player2.playCard());
-							b3.bHasMatch = false;
+							b2.addCard(player2.playCard());
+							b2.bHasMatch = false;
 							bP1Stuck = bP2Stuck = false;
 						}
 						break;
@@ -747,8 +747,8 @@ public class Board
 					case 3:
 						if(matches[1][0] == 1)
 						{
-							b4.addCard(player2.playCard());
-							b4.bHasMatch = false;
+							b1.addCard(player2.playCard());
+							b1.bHasMatch = false;
 							bP1Stuck = bP2Stuck = false;
 						}
 						break;
@@ -795,7 +795,7 @@ public class Board
 		return null;
 	}
 	
-	//	Used to redeal the cards when players are stuck
+	//	Used to re deal the cards when players are stuck
 	private void stuck()
 	{
 		bP1Stuck = bP2Stuck = false;

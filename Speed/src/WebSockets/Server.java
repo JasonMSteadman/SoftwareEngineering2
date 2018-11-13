@@ -52,13 +52,13 @@ public class Server{
 			sRole = "Spectator";
 		}
 		
-		try
+		try 
 		{
 			session.getBasicRemote().sendText(buildJsonData("role", sRole));
-		}
-		catch(Exception e)
+		} 
+		catch (IOException e1) 
 		{
-			//	TODO	Make more specific 	
+			e1.printStackTrace();
 		}
 		
 		users.add(session);
@@ -67,15 +67,16 @@ public class Server{
 			game = new Board();
 			game.setPlayer1(playerOne);
 			game.setPlayer2(playerTwo);
-			try
+
+			try 
 			{
 				refreshBoard();
 				bStartGame = false;
-			}
-			catch (Exception e)
+			} 
+			catch (IOException e) 
 			{
-				//	TODO 	Make more specific.
-			}
+				e.printStackTrace();
+			}	
 		}
 	}
 	
@@ -91,7 +92,7 @@ public class Server{
 			//	Update board state
 			refreshBoard();
 		}
-		
+		return;
 	}
 	
 	@OnClose
@@ -120,11 +121,12 @@ public class Server{
 		{
 			refreshBoard();
 		}
-		catch (Exception e)
+		catch (IOException e) 
 		{
-			//	TODO 	Make more specific.
+			e.printStackTrace();
 		}		
 		users.remove(session);
+		return;
 	}
 	
 	public String buildJsonData(String attribute, String message)
@@ -152,6 +154,5 @@ public class Server{
 			//	Send new board state
 			currentSession.getBasicRemote().sendText(stringWriter.toString());	
 		}
-	}
-	
+	}	
 }

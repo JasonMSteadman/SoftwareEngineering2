@@ -1,4 +1,5 @@
-var websocket = new WebSocket("ws://localhost:8080/Speed/Server")	
+var websocket = new WebSocket("wss://speedse2a3.azurewebsites.net/Server");	
+//var websocket = new WebSocket("ws:localhost:8080/Speed/Server");	
 
 websocket.onmessage = function processMessage(message){
 	var jsonData = JSON.parse(message.data);
